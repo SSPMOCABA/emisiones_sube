@@ -1,0 +1,34 @@
+Ejemplo para un registro de Linea 2, calculo el factor de emisión para NOx:
+speed = 10; % [km/h]
+speed_timestamp = 30; % [s]
+age = 2016; --> sale de la tabla Fleet_emission_and_age_database
+gas = 'NOx'; --> gas para el cual quiero obtener el factor de emision
+euro3 = 3;
+factor_emision_euro_III = emission_factor(speed,age,euro3,gas); %[g/km]
+
+--> Usando la tabla de coeficientes de polinomio (a,b,c/ emission_factor = a*speed^2 + b*speed + c)
+Obtengo el factor de emision de euro 3 para la linea 2 como:
+
+factor_emision_euro_III = 0.0033*10^2 + (-0.4526)*10 + 19.794 = 15.598 g/km
+
+euro5 = 5;
+factor_emision_euro_V   = emission_factor(speed,age,euro5,gas); %[g/km]
+
+--> Usando la tabla de coeficientes de polinomio (a,b,c/ emission_factor = a*speed^2 + b*speed + c)
+Obtengo el factor de emision de euro 5 para la linea 2 como:
+
+factor_emision_euro_V = 0.0031*10^2 + (-0.4244)*10 + 16.313 =  12.379 g/km
+
+Calculo el factor de emision equivalente usando los porcentajes de tecnologia euro de la linea 2.
+--> Estos porcentajes los obtengo de la tabla Fleet_emission_and_age_database
+porcent_Euro_III = 0.5636
+porcent_Euro_V = 0.4364
+factor_emision_equivalente     = porcent_Euro_III*factor_emision_euro_III + porcent_Euro_V*factor_emision_euro_V;       %[g/km]
+            
+factor_emision_equivalente    = 0.5636*15.598 + 0.4364*12.379 =  14.193 g/km
+
+Finalmente calculo el registro de emision en gramos totales como:
+
+ emision = factor_emision_equivalente * speed * speed_timestamp/3600;
+
+ emision = 14.193 g/km * 10 km/h * 30 s / (3600s/h) = 1.183 g
