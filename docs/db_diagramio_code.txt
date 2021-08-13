@@ -1,0 +1,33 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+
+// Creating tables
+Table factores_emision {
+  euro int
+  year int
+  emission text
+  a numeric
+  b numeric
+  c numeric  
+}
+
+Table flota {
+  linea int 
+  id_linea int
+  euro_3_perc numeric
+  euro_5_perc numeric
+  fleet_mean_age int
+ }
+
+Table datos_sube {
+  id_linea int
+  }
+
+
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+Ref: flota.id_linea > datos_sube.id_linea
+//----------------------------------------------//
